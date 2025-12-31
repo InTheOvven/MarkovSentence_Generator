@@ -32,9 +32,13 @@ def main():
         print("The words you entered are not in the dictionary, please restart and try again.")
 
     #Output our generated text
-
+    i = 0
     for word in outputList:
         print(word + " ", end="")
+        i += 1
+        if i == 25:
+            print()
+            i = 0
 
 
 def Generate(sword1, sword2, wordDict):
