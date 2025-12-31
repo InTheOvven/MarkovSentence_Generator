@@ -39,8 +39,17 @@ def main():
 
 def Generate(sword1, sword2, wordDict):
     wordsPossible = wordDict[sword1 + " " + sword2]
-    randomNumber = random.randint(0, len(wordsPossible) - 1)
-    return wordsPossible[randomNumber]
+    totalAvg = 0
+    tempRand = 0
+    for i in wordsPossible:
+        totalAvg += wordsPossible[i]
+    randomNumber = random.randint(0, totalAvg - 1 )
+    tempRand = randomNumber
+    for i in wordsPossible:
+        if wordsPossible[i] > tempRand:
+            return i
+        else:
+            tempRand = tempRand - wordsPossible[i]
 
 def GetTotalWords():
     try:
@@ -71,10 +80,11 @@ def CreateDict(wordList):
             word3 = word
 
         if i > 2:
-            if word1 + " " + word2 in wordDict:
-                wordDict[word1 + " " + word2].append(word3)
+            key = word1 + " " + word2
+            if key in wordDict:
+                wordDict[key][word3] = wordDict[key].get(word3, 0) + 1
             else:
-                wordDict[word1 + " " + word2] = [word3]
+                wordDict[key] = { word3 : 1 }
         i = i + 1
 
     return wordDict
